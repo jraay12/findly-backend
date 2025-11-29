@@ -9,9 +9,19 @@ export class ItemRepository {
         status: data.status,
         image_url: data.image_url,
         qr_token: data.qr_token,
-        created_by: data.created_by,        
-      }
-      
+        created_by: data.created_by,
+        item_name: data.item_name
+        
+      },
+    });
+  }
+
+  async getLostItem(user_id: number, tx = prisma) {
+    return await tx.user_item.findMany({
+      where: {
+        user_id: user_id,
+        status: "LOST",
+      },
     });
   }
 }

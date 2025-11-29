@@ -17,6 +17,8 @@ const router = Router();
  *         application/json:
  *           schema:
  *             type: object
+ *             required:
+ *               - item_name
  *             properties:
  *               item_name:
  *                 type: string
@@ -78,6 +80,102 @@ const router = Router();
  *         description: Internal server error
  */
 
+
+/**
+ * @swagger
+ * /items/userItemLost:
+ *   get:
+ *     summary: Get lost items
+ *     tags: [UserItems]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: List of lost items
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: integer
+ *                     example: 1
+ *                   user_id:
+ *                     type: integer
+ *                     example: 1
+ *                   item_name:
+ *                     type: string
+ *                     example: "Wallet"
+ *                   status:
+ *                     type: string
+ *                     example: "lost"
+ *                   image_url:
+ *                     type: string
+ *                     nullable: true
+ *                     example: "uploads/downpayment/user_item_qr.png"
+ *                   qr_token:
+ *                     type: string
+ *                     example: "abc123xyz"
+ *                   created_by:
+ *                     type: integer
+ *                     example: 1
+ *                   updated_by:
+ *                     type: integer
+ *                     nullable: true
+ *                     example: null
+ *                   createdAt:
+ *                     type: string
+ *                     format: date-time
+ *                     example: "2025-11-30T03:00:00Z"
+ *                   updatedAt:
+ *                     type: string
+ *                     format: date-time
+ *                     example: "2025-11-30T03:05:00Z"
+ *                   userInformation:
+ *                     type: object
+ *                     properties:
+ *                       id:
+ *                         type: integer
+ *                         example: 1
+ *                       first_name:
+ *                         type: string
+ *                         example: "John"
+ *                       middle_name:
+ *                         type: string
+ *                         example: "C"
+ *                       last_name:
+ *                         type: string
+ *                         example: "Doe"
+ *                       contact_number:
+ *                         type: string
+ *                         example: "09123456789"
+ *                       address:
+ *                         type: string
+ *                         example: "123 Main St, City"
+ *                       created_by:
+ *                         type: integer
+ *                         example: 1
+ *                       updated_by:
+ *                         type: integer
+ *                         nullable: true
+ *                         example: null
+ *                       createdAt:
+ *                         type: string
+ *                         format: date-time
+ *                         example: "2025-11-30T03:00:00Z"
+ *                       updatedAt:
+ *                         type: string
+ *                         format: date-time
+ *                         example: "2025-11-30T03:05:00Z"
+ *       401:
+ *         description: Unauthorized
+ *       500:
+ *         description: Internal server error
+ */
+
 router.post("/createUserItem", authenticateJWT, itemController.createUserItem);
+router.get("/userItemLost", authenticateJWT, itemController.getUserLostItem);
 
 export default router;
