@@ -38,4 +38,19 @@ model user_information {
   updatedAt        DateTime  @updatedAt
 
   user             user      @relation(fields: [user_id], references: [id])
+  user_item user_item[]
+}
+
+model user_item {
+  id               Int       @id @default(autoincrement())
+  user_information             user_information      @relation(fields: [user_id], references: [id])
+  user_id          Int      
+  item_name        String?
+  status           String?
+  image_url        String?
+  qr_token         String
+  created_by       Int
+  updated_by       Int?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
 }

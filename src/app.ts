@@ -3,7 +3,7 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerJsdoc = require('swagger-jsdoc'); 
 
 import userRoutes from "./interfaces/routes/user.routes";
-
+import itemRoutes from "./interfaces/routes/item.routes";
 const app = express();
 app.use(express.json());
 
@@ -47,5 +47,6 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 // Register your routes
 // ----------------------
 app.use("/users", userRoutes);
+app.use("/items", itemRoutes);
 
 export default app;
