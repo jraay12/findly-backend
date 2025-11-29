@@ -62,5 +62,34 @@ export class UserRepository {
     });
   }
 
-  
+  async storeEmailToken(id: number, token: string, tx = prisma) {
+    return await tx.user.update({
+      where: {
+        id,
+      },
+      data: {
+        verification_token: token,
+      },
+    });
+  }
+
+  async verifyUser(id: number, tx = prisma) {
+    return await tx.user.update({
+      where: {
+        id,
+      },
+      data: {
+        email_verify: true,
+        verification_token: null,
+      },
+    });
+  }
+
+  async findByEmailToken(token: string, tx = prisma) {
+    return await tx.user.findFirst({
+      where: {
+        verification_token: token,
+      },
+    });
+  }
 }

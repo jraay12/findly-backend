@@ -194,5 +194,6 @@ router.patch(
   authenticateJWT,
   userController.updateUserStatus
 );
+router.get("/verify", userController.verify);
 
 export default router;

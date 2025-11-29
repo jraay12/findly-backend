@@ -15,7 +15,7 @@ const swaggerOptions = {
     openapi: "3.0.0",
     info: {
       title: "User API",
-      version: "1.0.0",
+      version: "1.0.0", 
       description: "API for managing users",
     },
     servers: [

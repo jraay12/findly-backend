@@ -15,6 +15,7 @@ model user {
   created_by       Int?
   role             String?
   email_verify     Boolean           @default(false)
+  verification_token   String?
   createdAt        DateTime          @default(now())
   updatedAt        DateTime          @updatedAt
 

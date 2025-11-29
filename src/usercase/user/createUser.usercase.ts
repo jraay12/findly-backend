@@ -1,9 +1,9 @@
 import { UserRepository } from "../../infrastructure/repositories/user.repository";
 import { User } from "../../domain/user.entity";
 import { CreateUserDTO } from "../../domain/dto/createUser.dto";
-
+import { SendVerificationEmail } from "./sendVerificationEmail.usecase";
 export class CreateUserUseCase {
-  constructor(private userRepository: UserRepository) {}
+  constructor(private userRepository: UserRepository, private sendVerificationEmail: SendVerificationEmail) {}
 
   async execute(data: CreateUserDTO): Promise<User> {
     const {
@@ -47,6 +47,8 @@ export class CreateUserUseCase {
         address: created.user_information!.address ?? undefined,
       },
     };
+
+    await this.sendVerificationEmail.execute(user.id, user.email);
 
     return user;
   }
