@@ -3,6 +3,7 @@ import {
   createUserItemUsecase,
   getUserLostItemUsecase,
   updateStatusUsecase,
+  getAllUserItemUsecase
 } from "../../usercase/item";
 
 class ItemController {
@@ -54,6 +55,21 @@ class ItemController {
       );
       return res.json({
         message: "update status successfully",
+        result,
+      });
+    } catch (err: any) {
+      return res.status(400).json({ error: err.message });
+    }
+  }
+
+  async getAllUserItem(req: Request, res: Response) {
+    try {
+      const user = (req as any).user;
+      const user_id = user.id;
+
+      const result = await getAllUserItemUsecase.execute(user_id);
+      return res.json({
+        success: true,
         result,
       });
     } catch (err: any) {

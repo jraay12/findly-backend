@@ -261,7 +261,74 @@ const router = Router();
  *         description: Internal server error
  */
 
+
+/**
+ * @swagger
+ * /items/getAllUserItem:
+ *   get:
+ *     summary: Get all user items
+ *     tags: [UserItems]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Successfully retrieved all user items
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "get all user items successfully"
+ *                 result:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       id:
+ *                         type: integer
+ *                         example: 1
+ *                       user_id:
+ *                         type: integer
+ *                         example: 10
+ *                       item_name:
+ *                         type: string
+ *                         example: "Umbrella"
+ *                       status:
+ *                         type: string
+ *                         example: "claimed"
+ *                       image_url:
+ *                         type: string
+ *                         nullable: true
+ *                         example: "uploads/downpayment/user_item_qr.png"
+ *                       qr_token:
+ *                         type: string
+ *                         example: "xyz987token"
+ *                       created_by:
+ *                         type: integer
+ *                         example: 1
+ *                       updated_by:
+ *                         type: integer
+ *                         nullable: true
+ *                         example: 2
+ *                       createdAt:
+ *                         type: string
+ *                         format: date-time
+ *                         example: "2025-11-30T03:00:00Z"
+ *                       updatedAt:
+ *                         type: string
+ *                         format: date-time
+ *                         example: "2025-11-30T03:10:00Z"
+ *       401:
+ *         description: Unauthorized - Missing or invalid token
+ *       500:
+ *         description: Internal server error
+ */
+
 router.post("/createUserItem", authenticateJWT, itemController.createUserItem);
 router.get("/userItemLost", authenticateJWT, itemController.getUserLostItem);
 router.put("/update-status/:id", authenticateJWT, itemController.updateItemStatus)
+router.get("/getAllUserItem", authenticateJWT, itemController.getAllUserItem);
+
 export default router;
