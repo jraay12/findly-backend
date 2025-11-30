@@ -10,6 +10,10 @@ import {
   sendQrScanNotificationUsecase,
 } from "../../usercase/item";
 
+interface MulterRequest extends Request {
+  file: Express.Multer.File;
+}
+
 class ItemController {
   async createUserItem(req: Request, res: Response) {
     try {
@@ -20,7 +24,7 @@ class ItemController {
         ...req.body,
         user_id: user_id,
         created_by: user_id,
-      });
+      }, (req as any).file);
       return res.json({
         message: "Create User Item Successfully",
         data: result,

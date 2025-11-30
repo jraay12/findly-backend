@@ -2,6 +2,7 @@ import { Router } from "express";
 import itemController from "../controllers/item.contrtoller";
 import { authenticateJWT } from "../../middleware/auth.middleware";
 const router = Router();
+import { multerUpload } from "../../infrastructure/upload/multerConfig";
 
 /**
  * @swagger
@@ -14,7 +15,7 @@ const router = Router();
  *     requestBody:
  *       required: true
  *       content:
- *         application/json:
+ *         multipart/form-data:
  *           schema:
  *             type: object
  *             required:
@@ -30,10 +31,11 @@ const router = Router();
  *               status:
  *                 type: string
  *                 example: "active"
- *               image_url:
+ *               image:
  *                 type: string
+ *                 format: binary
  *                 nullable: true
- *                 example: "https://example.com/image.png"
+ *                 description: Optional image file
  *     responses:
  *       201:
  *         description: Item created successfully
@@ -61,7 +63,7 @@ const router = Router();
  *                 image_url:
  *                   type: string
  *                   nullable: true
- *                   example: "https://example.com/image.png"
+ *                   example: "/findly-upload/user_item_images/12345_image.png"
  *                 qr_token:
  *                   type: string
  *                   example: "abc123xyz"
@@ -87,7 +89,6 @@ const router = Router();
  *       500:
  *         description: Internal server error
  */
-
 
 /**
  * @swagger
@@ -183,7 +184,6 @@ const router = Router();
  *         description: Internal server error
  */
 
-
 /**
  * @swagger
  * /items/update-status/{id}:
@@ -269,7 +269,6 @@ const router = Router();
  *         description: Internal server error
  */
 
-
 /**
  * @swagger
  * /items/getAllUserItem:
@@ -333,7 +332,6 @@ const router = Router();
  *       500:
  *         description: Internal server error
  */
-
 
 // update item
 /**
@@ -517,7 +515,6 @@ const router = Router();
  *         description: Internal server error
  */
 
-
 // get specific item based on token
 /**
  * @swagger
@@ -665,19 +662,35 @@ const router = Router();
  *               properties:
  *                 error:
  *                   type: string
- *                   example: "Item not found" 
+ *                   example: "Item not found"
  *       500:
  *         description: Internal server error
  */
 
-
-router.post("/createUserItem", authenticateJWT, itemController.createUserItem);
+router.post(
+  "/createUserItem",
+  authenticateJWT,
+  multerUpload.single("image"),
+  itemController.createUserItem
+);
 router.get("/userItemLost", authenticateJWT, itemController.getUserLostItem);
-router.put("/update-status/:id", authenticateJWT, itemController.updateItemStatus)
+router.put(
+  "/update-status/:id",
+  authenticateJWT,
+  itemController.updateItemStatus
+);
 router.get("/getAllUserItem", authenticateJWT, itemController.getAllUserItem);
-router.put("/update-item/:id", authenticateJWT, itemController.updateUserItem)
-router.get("/get-specific-item/:id", authenticateJWT, itemController.getSpecificItem)
-router.get("/get-specific-token-item/:token", authenticateJWT, itemController.getSpecificItemByToken)
+router.put("/update-item/:id", authenticateJWT, itemController.updateUserItem);
+router.get(
+  "/get-specific-item/:id",
+  authenticateJWT,
+  itemController.getSpecificItem
+);
+router.get(
+  "/get-specific-token-item/:token",
+  authenticateJWT,
+  itemController.getSpecificItemByToken
+);
 router.get("/send-qr-notification/:token", itemController.sendQRNotification);
 
 export default router;
