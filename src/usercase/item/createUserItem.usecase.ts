@@ -6,7 +6,7 @@ import fs from "fs";
 import path from "path";
 
 export class CreateUserItemUsecase {
-  constructor(private itemRepository: ItemRepository) {}
+  constructor(private itemRepository: ItemRepository) {}  
 
   async execute(data: CreateUserItemDTO, file: Express.Multer.File) {
     // 1. Save the uploaded image
@@ -46,9 +46,10 @@ export class CreateUserItemUsecase {
       }
 
       const qrFile = path.join(qrFolder, `qr_${itemId}.png`);
+      const qrUrl = `${process.env.FRONTEND_URL}/findly-upload/qr-images/qr_${itemId}.png`;
 
       // Generate QR image
-      await QRCode.toFile(qrFile, qrToken, { errorCorrectionLevel: "H" });
+      await QRCode.toFile(qrFile, qrUrl, { errorCorrectionLevel: "H" });
 
       // Update DB with QR image path
       await this.itemRepository.updateQrImage(

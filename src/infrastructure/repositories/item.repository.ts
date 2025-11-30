@@ -94,4 +94,12 @@ export class ItemRepository {
       },
     });
   }
+
+  async deleteItemById(id: number, tx = prisma) {
+    return await tx.user_item.delete({
+      where: {
+        id,
+      },
+    });
+  }
 }

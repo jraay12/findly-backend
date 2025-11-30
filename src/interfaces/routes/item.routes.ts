@@ -667,6 +667,53 @@ import { multerUpload } from "../../infrastructure/upload/multerConfig";
  *         description: Internal server error
  */
 
+
+// delete item
+/**
+ * @swagger
+ * /items/delete-item/{id}:
+ *   delete:
+ *     summary: Delete a user item along with its files
+ *     description: Deletes a user item from the database and also removes the associated image and QR files from the server.
+ *     tags: [UserItems]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *           example: 1
+ *         description: ID of the item to delete
+ *     responses:
+ *       200:
+ *         description: Item successfully deleted
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Successfully removed"
+ *       400:
+ *         description: Item not found or invalid ID
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Item not found"
+ *       401:
+ *         description: Unauthorized – JWT token missing or invalid
+ *       500:
+ *         description: Internal server error
+ */
+
+
 router.post(
   "/createUserItem",
   authenticateJWT,
@@ -692,5 +739,6 @@ router.get(
   itemController.getSpecificItemByToken
 );
 router.get("/send-qr-notification/:token", itemController.sendQRNotification);
+router.delete("/delete-item/:id", authenticateJWT, itemController.deleteItem);
 
 export default router;

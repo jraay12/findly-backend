@@ -8,6 +8,7 @@ import {
   getSpecificItemUsecase,
   getSpecificItemByTokenUsecase,
   sendQrScanNotificationUsecase,
+  deleteItemUsecase,
 } from "../../usercase/item";
 
 interface MulterRequest extends Request {
@@ -20,11 +21,14 @@ class ItemController {
       const user = (req as any).user;
       const user_id = user.id;
 
-      const result = await createUserItemUsecase.execute({
-        ...req.body,
-        user_id: user_id,
-        created_by: user_id,
-      }, (req as any).file);
+      const result = await createUserItemUsecase.execute(
+        {
+          ...req.body,
+          user_id: user_id,
+          created_by: user_id,
+        },
+        (req as any).file
+      );
       return res.json({
         message: "Create User Item Successfully",
         data: result,
@@ -134,6 +138,19 @@ class ItemController {
     try {
       const token = req.params.token;
       const result = await sendQrScanNotificationUsecase.execute(token);
+      return res.json({
+        successs: true,
+        result,
+      });
+    } catch (err: any) {
+      return res.status(400).json({ error: err.message });
+    }
+  }
+
+  async deleteItem(req: Request, res: Response) {
+    try {
+      const item_id = parseInt(req.params.id);
+      const result = await deleteItemUsecase.execute(item_id);
       return res.json({
         successs: true,
         result,
