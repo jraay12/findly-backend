@@ -5,4 +5,5 @@ export interface CreateUserItemDTO {
   user_id: number;
   qr_token: string;
   created_by: number;
+  item_description: string | null
 }

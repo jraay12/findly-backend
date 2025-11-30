@@ -11,6 +11,7 @@ export class ItemRepository {
         qr_token: data.qr_token,
         created_by: data.created_by,
         item_name: data.item_name,
+        item_description: data.item_description
       },
     });
   }
@@ -65,6 +66,13 @@ export class ItemRepository {
       data: {
         ...data,
       },
+    });
+  }
+
+  async updateQrImage(itemId: number, imageUrl: string) {
+    return prisma.user_item.update({
+      where: { id: itemId },
+      data: { qr_image_url: imageUrl },
     });
   }
 }
