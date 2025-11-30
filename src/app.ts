@@ -1,9 +1,10 @@
 import express from "express";
-const swaggerUi = require('swagger-ui-express'); 
-const swaggerJsdoc = require('swagger-jsdoc'); 
+const swaggerUi = require("swagger-ui-express");
+const swaggerJsdoc = require("swagger-jsdoc");
 
 import userRoutes from "./interfaces/routes/user.routes";
 import itemRoutes from "./interfaces/routes/item.routes";
+import path from "path";
 const app = express();
 app.use(express.json());
 
@@ -15,7 +16,7 @@ const swaggerOptions = {
     openapi: "3.0.0",
     info: {
       title: "User API",
-      version: "1.0.0", 
+      version: "1.0.0",
       description: "API for managing users",
     },
     servers: [
@@ -26,7 +27,8 @@ const swaggerOptions = {
     ],
     components: {
       securitySchemes: {
-        bearerAuth: {      // ← This is required for padlock
+        bearerAuth: {
+          // ← This is required for padlock
           type: "http",
           scheme: "bearer",
           bearerFormat: "JWT",
@@ -37,6 +39,10 @@ const swaggerOptions = {
   },
   apis: ["./src/interfaces/routes/*.ts"], // your route files
 };
+
+const rootPath = path.resolve(__dirname, ".."); // __dirname is src/, so .. is project root
+
+app.use("/findly-upload", express.static(path.join(rootPath, "findly-upload")));
 
 const swaggerSpec = swaggerJsdoc(swaggerOptions);
 

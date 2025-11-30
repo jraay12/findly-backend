@@ -517,11 +517,121 @@ const router = Router();
  *         description: Internal server error
  */
 
+
+// get specific item based on token
+/**
+ * @swagger
+ * /items/get-specific-token-item/{token}:
+ *   get:
+ *     summary: Get specific item by QR token
+ *     description: Retrieve detailed information for a specific user item using its QR token, including related user information.
+ *     tags: [UserItems]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: token
+ *         required: true
+ *         schema:
+ *           type: string
+ *           example: "abc123xyz"
+ *         description: QR token of the item to retrieve
+ *     responses:
+ *       200:
+ *         description: Specific item details retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: integer
+ *                   example: 1
+ *                 user_id:
+ *                   type: integer
+ *                   example: 1
+ *                 item_name:
+ *                   type: string
+ *                   example: "Wallet"
+ *                 item_description:
+ *                   type: string
+ *                   nullable: true
+ *                   example: "Black leather wallet"
+ *                 status:
+ *                   type: string
+ *                   example: "lost"
+ *                 image_url:
+ *                   type: string
+ *                   nullable: true
+ *                   example: "uploads/downpayment/user_item_qr.png"
+ *                 qr_token:
+ *                   type: string
+ *                   example: "abc123xyz"
+ *                 created_by:
+ *                   type: integer
+ *                   example: 1
+ *                 updated_by:
+ *                   type: integer
+ *                   nullable: true
+ *                   example: null
+ *                 createdAt:
+ *                   type: string
+ *                   format: date-time
+ *                   example: "2025-11-30T03:00:00Z"
+ *                 updatedAt:
+ *                   type: string
+ *                   format: date-time
+ *                   example: "2025-11-30T03:05:00Z"
+ *                 userInformation:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: integer
+ *                       example: 1
+ *                     first_name:
+ *                       type: string
+ *                       example: "John"
+ *                     middle_name:
+ *                       type: string
+ *                       example: "C"
+ *                     last_name:
+ *                       type: string
+ *                       example: "Doe"
+ *                     contact_number:
+ *                       type: string
+ *                       example: "09123456789"
+ *                     address:
+ *                       type: string
+ *                       example: "123 Main St, City"
+ *                     created_by:
+ *                       type: integer
+ *                       example: 1
+ *                     updated_by:
+ *                       type: integer
+ *                       nullable: true
+ *                       example: null
+ *                     createdAt:
+ *                       type: string
+ *                       format: date-time
+ *                       example: "2025-11-30T03:00:00Z"
+ *                     updatedAt:
+ *                       type: string
+ *                       format: date-time
+ *                       example: "2025-11-30T03:05:00Z"
+ *       401:
+ *         description: Unauthorized
+ *       404:
+ *         description: Item not found
+ *       500:
+ *         description: Internal server error
+ */
+
 router.post("/createUserItem", authenticateJWT, itemController.createUserItem);
 router.get("/userItemLost", authenticateJWT, itemController.getUserLostItem);
 router.put("/update-status/:id", authenticateJWT, itemController.updateItemStatus)
 router.get("/getAllUserItem", authenticateJWT, itemController.getAllUserItem);
 router.put("/update-item/:id", authenticateJWT, itemController.updateUserItem)
 router.get("/get-specific-item/:id", authenticateJWT, itemController.getSpecificItem)
+router.get("/get-specific-token-item/:token", authenticateJWT, itemController.getSpecificItemByToken)
 
 export default router;

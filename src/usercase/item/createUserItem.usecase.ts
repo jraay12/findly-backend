@@ -17,34 +17,34 @@ export class CreateUserItemUsecase {
       ...data,
       qr_token: qrToken,
     });
-    
+
     this.generateQrImageAsync(created.id, qrToken);
     return created;
   }
 
   private async generateQrImageAsync(itemId: number, qrToken: string) {
-    setImmediate(async () => {
-      try {
-        const qrFolder = path.join(process.cwd(), "uploads", "user_item_qr");
-        if (!fs.existsSync(qrFolder)) {
-          fs.mkdirSync(qrFolder, { recursive: true });
-        }
-
-        const qrFile = path.join(qrFolder, `qr_${itemId}.png`);
-
-        // Generate QR image
-        await QRCode.toFile(qrFile, qrToken, { errorCorrectionLevel: "H" });
-
-        // Update DB with image path
-        await this.itemRepository.updateQrImage(
-          itemId,
-          `findly-upload/user_item_qr/qr_${itemId}.png`
-        );
-
-       
-      } catch (err) {
-        console.error("Failed to generate QR:", err);
+    try {
+      const qrFolder = path.join(
+        process.cwd(),
+        "findly-upload",
+        "user_item_qr"
+      );
+      if (!fs.existsSync(qrFolder)) {
+        fs.mkdirSync(qrFolder, { recursive: true });
       }
-    });
+
+      const qrFile = path.join(qrFolder, `qr_${itemId}.png`);
+
+      // Generate QR image
+      await QRCode.toFile(qrFile, qrToken, { errorCorrectionLevel: "H" });
+
+      // Update DB with image path
+      await this.itemRepository.updateQrImage(
+        itemId,
+        `findly-upload/user_item_qr/qr_${itemId}.png`
+      );
+    } catch (err) {
+      console.error("Failed to generate QR:", err);
+    }
   }
 }

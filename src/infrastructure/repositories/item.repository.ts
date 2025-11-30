@@ -11,7 +11,7 @@ export class ItemRepository {
         qr_token: data.qr_token,
         created_by: data.created_by,
         item_name: data.item_name,
-        item_description: data.item_description
+        item_description: data.item_description,
       },
     });
   }
@@ -73,6 +73,14 @@ export class ItemRepository {
     return prisma.user_item.update({
       where: { id: itemId },
       data: { qr_image_url: imageUrl },
+    });
+  }
+
+  async findItemByToken(token: string, tx = prisma) {
+    return await tx.user_item.findUnique({
+      where: {
+        qr_token: token,
+      },
     });
   }
 }

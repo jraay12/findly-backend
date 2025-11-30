@@ -42,11 +42,13 @@ CREATE TABLE `user_item` (
     `status` VARCHAR(191) NULL,
     `image_url` VARCHAR(191) NULL,
     `qr_token` VARCHAR(191) NOT NULL,
+    `qr_image_url` VARCHAR(191) NULL,
     `created_by` INTEGER NOT NULL,
     `updated_by` INTEGER NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
 
+    UNIQUE INDEX `user_item_qr_token_key`(`qr_token`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 

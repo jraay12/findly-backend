@@ -6,6 +6,7 @@ import {
   getAllUserItemUsecase,
   updateUserItemUsecase,
   getSpecificItemUsecase,
+  getSpecificItemByTokenUsecase,
 } from "../../usercase/item";
 
 class ItemController {
@@ -102,6 +103,19 @@ class ItemController {
     try {
       const item_id = parseInt(req.params.id);
       const result = await getSpecificItemUsecase.execute(item_id);
+      return res.json({
+        successs: true,
+        result,
+      });
+    } catch (err: any) {
+      return res.status(400).json({ error: err.message });
+    }
+  }
+
+  async getSpecificItemByToken(req: Request, res: Response) {
+    try {
+      const token = req.params.token
+      const result = await getSpecificItemByTokenUsecase.execute(token);
       return res.json({
         successs: true,
         result,
