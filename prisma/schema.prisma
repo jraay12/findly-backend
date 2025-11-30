@@ -51,6 +51,7 @@ model user_item {
   image_url        String?
   qr_token         String    @unique
   qr_image_url     String?
+  allow_download_image  Boolean @default(false)
   created_by       Int
   updated_by       Int?
   createdAt        DateTime  @default(now())
