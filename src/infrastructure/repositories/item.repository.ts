@@ -20,7 +20,7 @@ export class ItemRepository {
     return await tx.user_item.findMany({
       where: {
         user_id: user_id,
-        status: "LOST",
+        status: "Lost",
       },
     });
   }
