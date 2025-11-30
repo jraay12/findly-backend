@@ -186,6 +186,67 @@ const router = Router();
  *       404:
  *         description: User not found
  */
+
+
+// user information
+/**
+ * @swagger
+ * /users/getUserInformation:
+ *   get:
+ *     summary: Get information of the currently authenticated user
+ *     description: Retrieves detailed information of the user based on the JWT token provided in the request header.
+ *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: User information retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Users retrieved successfully"
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: integer
+ *                       example: 1
+ *                     first_name:
+ *                       type: string
+ *                       example: "John"
+ *                     middle_name:
+ *                       type: string
+ *                       example: "C"
+ *                     last_name:
+ *                       type: string
+ *                       example: "Doe"
+ *                     email:
+ *                       type: string
+ *                       example: "john@example.com"
+ *                     contact_number:
+ *                       type: string
+ *                       example: "09123456789"
+ *                     address:
+ *                       type: string
+ *                       example: "123 Main St, City"
+ *                     createdAt:
+ *                       type: string
+ *                       format: date-time
+ *                       example: "2025-11-30T03:00:00Z"
+ *                     updatedAt:
+ *                       type: string
+ *                       format: date-time
+ *                       example: "2025-11-30T03:05:00Z"
+ *       401:
+ *         description: Unauthorized - missing or invalid token
+ *       500:
+ *         description: Internal server error
+ */
+
 router.post("/createUser", userController.createUser);
 router.get("/getUser", authenticateJWT, userController.getUser);
 router.post("/loginUser", userController.loginUser);
@@ -195,5 +256,7 @@ router.patch(
   userController.updateUserStatus
 );
 router.get("/verify", userController.verify);
+router.get("/getUserInformation", authenticateJWT, userController.getUserInformation);
+
 
 export default router;

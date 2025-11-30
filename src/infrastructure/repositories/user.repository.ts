@@ -92,4 +92,12 @@ export class UserRepository {
       },
     });
   }
+
+  async getUserById(user_id: number, tx = prisma) {
+    return await tx.user_information.findUnique({
+      where: {
+        user_id,
+      },
+    });
+  }
 }

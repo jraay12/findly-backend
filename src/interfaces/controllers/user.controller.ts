@@ -5,11 +5,8 @@ import {
   loginUserUseCase,
   deactivateUserUseCase,
   verifyEmail,
+  getUserInformationUsecase,
 } from "../../usercase/user";
-
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
-import { JWT_SECRET } from "../../config/env";
 
 class UserController {
   async createUser(req: Request, res: Response) {
@@ -79,6 +76,20 @@ class UserController {
     } catch (error: any) {
       console.error(error);
       res.status(400).send(renderErrorPage(error.message));
+    }
+  }
+
+  async getUserInformation(req: Request, res: Response) {
+    try {
+      const user = (req as any).user;
+      const user_id = user.id;
+      const result = await getUserInformationUsecase.execute(user_id);
+      return res.status(200).json({
+        success: true,
+        result,
+      });
+    } catch (err: any) {
+      return res.status(400).json({ error: err.message, success: false });
     }
   }
 }
