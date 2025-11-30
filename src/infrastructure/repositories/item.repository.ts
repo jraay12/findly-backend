@@ -81,6 +81,17 @@ export class ItemRepository {
       where: {
         qr_token: token,
       },
+      include: {
+        user_information: {
+          include: {
+            user: {
+              select: {
+                email: true,
+              },
+            },
+          },
+        },
+      },
     });
   }
 }

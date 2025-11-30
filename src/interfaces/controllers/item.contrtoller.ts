@@ -7,6 +7,7 @@ import {
   updateUserItemUsecase,
   getSpecificItemUsecase,
   getSpecificItemByTokenUsecase,
+  sendQrScanNotificationUsecase,
 } from "../../usercase/item";
 
 class ItemController {
@@ -114,8 +115,21 @@ class ItemController {
 
   async getSpecificItemByToken(req: Request, res: Response) {
     try {
-      const token = req.params.token
+      const token = req.params.token;
       const result = await getSpecificItemByTokenUsecase.execute(token);
+      return res.json({
+        successs: true,
+        result,
+      });
+    } catch (err: any) {
+      return res.status(400).json({ error: err.message });
+    }
+  }
+
+  async sendQRNotification(req: Request, res: Response) {
+    try {
+      const token = req.params.token;
+      const result = await sendQrScanNotificationUsecase.execute(token);
       return res.json({
         successs: true,
         result,

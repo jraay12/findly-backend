@@ -270,7 +270,7 @@ function renderErrorPage(message: string): string {
         p {
           color: #6b7280;
           font-size: 16px;
-          line-height: 1.6;
+          line-height: 1.
           margin-bottom: 32px;
         }
         .error-msg {

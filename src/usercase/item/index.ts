@@ -6,8 +6,13 @@ import { GetUserLostItemUsecase } from "./getUserLostItem.usecase";
 import { UpdateUserItemUsecase } from "./updateUserItem.usecase";
 import { UpdateStatusUsecase } from "./updateUserItemStatus.usecase";
 import { GetSpecificItemByTokenUsecase } from "./getSpecificItemByToken.usecasae";
+import { SendQrScanNotificationUsecase } from "./SendQrScanNotificationUsecase.usecase";
+import { NodemailerService } from "../../infrastructure/email/NodeMailerService";
+
 // Initialize repository and mailer
 const itemRepository = new ItemRepository();
+const nodemailerService = new NodemailerService();
+
 
 export const createUserItemUsecase = new CreateUserItemUsecase(itemRepository);
 export const getUserLostItemUsecase = new GetUserLostItemUsecase(
@@ -18,3 +23,4 @@ export const getAllUserItemUsecase = new GetAllUserItemUsecase(itemRepository);
 export const updateUserItemUsecase = new UpdateUserItemUsecase(itemRepository);
 export const getSpecificItemUsecase = new GetSpecificItemUsecase(itemRepository);
 export const getSpecificItemByTokenUsecase = new GetSpecificItemByTokenUsecase(itemRepository);
+export const sendQrScanNotificationUsecase = new SendQrScanNotificationUsecase(nodemailerService, itemRepository);

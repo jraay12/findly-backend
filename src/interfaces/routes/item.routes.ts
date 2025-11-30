@@ -626,6 +626,51 @@ const router = Router();
  *         description: Internal server error
  */
 
+//send qr notification
+/**
+ * @swagger
+ * /items/send-qr-notification/{token}:
+ *   get:
+ *     summary: Send QR scan notification email
+ *     description: Sends an email to the owner of the item when their QR code is scanned. Only allowed if `allow_download_image` is true.
+ *     tags: [UserItems]
+ *     parameters:
+ *       - in: path
+ *         name: token
+ *         required: true
+ *         schema:
+ *           type: string
+ *           example: "b231c43cecdd335625268c95c81b3e26"
+ *         description: QR token of the scanned item
+ *     responses:
+ *       200:
+ *         description: Notification sent successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 successs:
+ *                   type: boolean
+ *                   example: true
+ *                 result:
+ *                   type: string
+ *                   example: "Notification email sent successfully"
+ *       400:
+ *         description: Invalid request or item not found / not allowed
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Item not found" 
+ *       500:
+ *         description: Internal server error
+ */
+
+
 router.post("/createUserItem", authenticateJWT, itemController.createUserItem);
 router.get("/userItemLost", authenticateJWT, itemController.getUserLostItem);
 router.put("/update-status/:id", authenticateJWT, itemController.updateItemStatus)
@@ -633,5 +678,6 @@ router.get("/getAllUserItem", authenticateJWT, itemController.getAllUserItem);
 router.put("/update-item/:id", authenticateJWT, itemController.updateUserItem)
 router.get("/get-specific-item/:id", authenticateJWT, itemController.getSpecificItem)
 router.get("/get-specific-token-item/:token", authenticateJWT, itemController.getSpecificItemByToken)
+router.get("/send-qr-notification/:token", itemController.sendQRNotification);
 
 export default router;
