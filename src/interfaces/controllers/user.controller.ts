@@ -6,6 +6,7 @@ import {
   deactivateUserUseCase,
   verifyEmail,
   getUserInformationUsecase,
+  updateUserInformationUsecase
 } from "../../usercase/user";
 
 class UserController {
@@ -84,6 +85,20 @@ class UserController {
       const user = (req as any).user;
       const user_id = user.id;
       const result = await getUserInformationUsecase.execute(user_id);
+      return res.status(200).json({
+        success: true,
+        result,
+      });
+    } catch (err: any) {
+      return res.status(400).json({ error: err.message, success: false });
+    }
+  }
+
+   async updateUserInformation(req: Request, res: Response) {
+    try {
+      const user = (req as any).user;
+      const user_id = user.id;
+      const result = await updateUserInformationUsecase.execute(user_id, req.body);
       return res.status(200).json({
         success: true,
         result,

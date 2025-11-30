@@ -714,7 +714,7 @@ import { multerUpload } from "../../infrastructure/upload/multerConfig";
  */
 
 
-router.post(
+router.post(  
   "/createUserItem",
   authenticateJWT,
   multerUpload.single("image"),

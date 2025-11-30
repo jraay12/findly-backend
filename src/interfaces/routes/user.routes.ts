@@ -257,6 +257,6 @@ router.patch(
 );
 router.get("/verify", userController.verify);
 router.get("/getUserInformation", authenticateJWT, userController.getUserInformation);
-
+router.patch('/updateUserInformation', authenticateJWT, userController.updateUserInformation)
 
 export default router;

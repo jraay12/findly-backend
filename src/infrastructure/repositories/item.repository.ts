@@ -21,6 +21,7 @@ export class ItemRepository {
       where: {
         user_id: user_id,
         status: "Lost",
+        allow_download_image: true,
       },
     });
   }

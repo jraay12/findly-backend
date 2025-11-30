@@ -98,6 +98,24 @@ export class UserRepository {
       where: {
         user_id,
       },
+      include: {
+        user: {
+          select: {
+            email: true,
+          },
+        },
+      },
+    });
+  }
+
+  async updateUserInformation(user_id: number, data: any, tx = prisma) {
+    return await tx.user_information.update({
+      where: {
+        user_id,
+      },
+      data: {
+        ...data,
+      },
     });
   }
 }

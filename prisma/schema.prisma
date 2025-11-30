@@ -32,6 +32,7 @@ model user_information {
   last_name        String
   contact_number   String?
   address          String?
+  about            String?
   created_by       Int?
   updated_by       Int?
   createdAt        DateTime  @default(now())
