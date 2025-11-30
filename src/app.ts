@@ -1,12 +1,20 @@
 import express from "express";
 const swaggerUi = require("swagger-ui-express");
 const swaggerJsdoc = require("swagger-jsdoc");
+import cors from "cors"; // ← import CORS
 
 import userRoutes from "./interfaces/routes/user.routes";
 import itemRoutes from "./interfaces/routes/item.routes";
 import path from "path";
 const app = express();
 app.use(express.json());
+app.use(
+  cors({
+    origin: ["http://localhost:5173"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true, // if you need cookies
+  })
+);
 
 // ----------------------
 // Swagger configuration
