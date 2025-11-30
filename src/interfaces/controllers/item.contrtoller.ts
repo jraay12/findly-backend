@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import {
   createUserItemUsecase,
   getUserLostItemUsecase,
+  updateStatusUsecase,
 } from "../../usercase/item";
 
 class ItemController {
@@ -32,6 +33,27 @@ class ItemController {
       const result = await getUserLostItemUsecase.execute(user_id);
       return res.json({
         message: "User Lost item retrieve",
+        result,
+      });
+    } catch (err: any) {
+      return res.status(400).json({ error: err.message });
+    }
+  }
+
+  async updateItemStatus(req: Request, res: Response) {
+    try {
+      const user = (req as any).user;
+      const user_id = user.id;
+      const item_id = parseInt(req.params.id);
+      const { status } = req.body;
+
+      const result = await updateStatusUsecase.execute(
+        user_id,
+        item_id,
+        status
+      );
+      return res.json({
+        message: "update status successfully",
         result,
       });
     } catch (err: any) {

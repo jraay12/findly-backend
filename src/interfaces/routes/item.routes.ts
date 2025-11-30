@@ -175,7 +175,93 @@ const router = Router();
  *         description: Internal server error
  */
 
+
+/**
+ * @swagger
+ * /items/update-status/{id}:
+ *   put:
+ *     summary: Update the status of a user item
+ *     tags: [UserItems]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *           example: 1
+ *         description: ID of the user item to update
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - status
+ *             properties:
+ *               status:
+ *                 type: string
+ *                 example: "lost"
+ *                 description: New status of the item
+ *     responses:
+ *       200:
+ *         description: Item status updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "update status successfully"
+ *                 result:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: integer
+ *                       example: 1
+ *                     user_id:
+ *                       type: integer
+ *                       example: 1
+ *                     item_name:
+ *                       type: string
+ *                       example: "Wallet"
+ *                     status:
+ *                       type: string
+ *                       example: "lost"
+ *                     image_url:
+ *                       type: string
+ *                       nullable: true
+ *                       example: "uploads/downpayment/user_item_qr.png"
+ *                     qr_token:
+ *                       type: string
+ *                       example: "abc123xyz"
+ *                     created_by:
+ *                       type: integer
+ *                       example: 1
+ *                     updated_by:
+ *                       type: integer
+ *                       nullable: true
+ *                       example: 2
+ *                     createdAt:
+ *                       type: string
+ *                       format: date-time
+ *                       example: "2025-11-30T03:00:00Z"
+ *                     updatedAt:
+ *                       type: string
+ *                       format: date-time
+ *                       example: "2025-11-30T03:05:00Z"
+ *       400:
+ *         description: Invalid input
+ *       401:
+ *         description: Unauthorized
+ *       500:
+ *         description: Internal server error
+ */
+
 router.post("/createUserItem", authenticateJWT, itemController.createUserItem);
 router.get("/userItemLost", authenticateJWT, itemController.getUserLostItem);
-
+router.put("/update-status/:id", authenticateJWT, itemController.updateItemStatus)
 export default router;

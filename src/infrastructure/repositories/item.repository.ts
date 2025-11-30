@@ -10,8 +10,7 @@ export class ItemRepository {
         image_url: data.image_url,
         qr_token: data.qr_token,
         created_by: data.created_by,
-        item_name: data.item_name
-        
+        item_name: data.item_name,
       },
     });
   }
@@ -21,6 +20,31 @@ export class ItemRepository {
       where: {
         user_id: user_id,
         status: "LOST",
+      },
+    });
+  }
+
+  async updateItemStatus(
+    item_id: number,
+    user_id: number,
+    status: string,
+    tx = prisma
+  ) {
+    return await tx.user_item.update({
+      where: {
+        id: item_id,
+      },
+      data: {
+        status: status,
+        updated_by: user_id,
+      },
+    });
+  }
+
+  async findItemById(id: number, tx = prisma) {
+    return await tx.user_item.findUnique({
+      where: {
+        id,
       },
     });
   }
