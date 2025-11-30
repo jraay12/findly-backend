@@ -3,7 +3,8 @@ import {
   createUserItemUsecase,
   getUserLostItemUsecase,
   updateStatusUsecase,
-  getAllUserItemUsecase
+  getAllUserItemUsecase,
+  updateUserItemUsecase,
 } from "../../usercase/item";
 
 class ItemController {
@@ -68,6 +69,25 @@ class ItemController {
       const user_id = user.id;
 
       const result = await getAllUserItemUsecase.execute(user_id);
+      return res.json({
+        success: true,
+        result,
+      });
+    } catch (err: any) {
+      return res.status(400).json({ error: err.message });
+    }
+  }
+
+  async updateUserItem(req: Request, res: Response) {
+    try {
+      const user = (req as any).user;
+      const user_id = user.id;
+      const item_id = parseInt(req.params.id);
+
+      const result = await updateUserItemUsecase.execute(
+        { ...req.body, updated_by: user_id },
+        item_id
+      );
       return res.json({
         success: true,
         result,

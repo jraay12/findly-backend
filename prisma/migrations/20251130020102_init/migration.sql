@@ -33,5 +33,25 @@ CREATE TABLE `user_information` (
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
+-- CreateTable
+CREATE TABLE `user_item` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `user_id` INTEGER NOT NULL,
+    `item_name` VARCHAR(191) NULL,
+    `item_description` VARCHAR(191) NULL,
+    `status` VARCHAR(191) NULL,
+    `image_url` VARCHAR(191) NULL,
+    `qr_token` VARCHAR(191) NOT NULL,
+    `created_by` INTEGER NOT NULL,
+    `updated_by` INTEGER NULL,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updatedAt` DATETIME(3) NOT NULL,
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
 -- AddForeignKey
 ALTER TABLE `user_information` ADD CONSTRAINT `user_information_user_id_fkey` FOREIGN KEY (`user_id`) REFERENCES `user`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `user_item` ADD CONSTRAINT `user_item_user_id_fkey` FOREIGN KEY (`user_id`) REFERENCES `user_information`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;

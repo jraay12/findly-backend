@@ -46,6 +46,7 @@ model user_item {
   user_information             user_information      @relation(fields: [user_id], references: [id])
   user_id          Int      
   item_name        String?
+  item_description  String?
   status           String?
   image_url        String?
   qr_token         String

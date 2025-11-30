@@ -326,9 +326,85 @@ const router = Router();
  *         description: Internal server error
  */
 
+
+// update item
+/**
+ * @swagger
+ * /items/update-item/{id}:
+ *   put:
+ *     summary: Update an existing user item
+ *     description: Update the item's name or description based on the provided ID.
+ *     tags: [UserItems]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID of the item to update
+ *         schema:
+ *           type: integer
+ *           example: 1
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               item_name:
+ *                 type: string
+ *                 example: "New Wallet Name"
+ *                 nullable: true
+ *               item_description:
+ *                 type: string
+ *                 example: "Black leather wallet with two compartments"
+ *                 nullable: true
+ *     responses:
+ *       200:
+ *         description: User item updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "update item successfully"
+ *                 result:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: integer
+ *                       example: 1
+ *                     item_name:
+ *                       type: string
+ *                       example: "New Wallet Name"
+ *                     item_description:
+ *                       type: string
+ *                       example: "Black leather wallet with two compartments"
+ *                     updated_by:
+ *                       type: integer
+ *                       example: 1
+ *                     updatedAt:
+ *                       type: string
+ *                       format: date-time
+ *                       example: "2025-11-30T04:15:00Z"
+ *       400:
+ *         description: Invalid input or body fields
+ *       401:
+ *         description: Unauthorized
+ *       404:
+ *         description: Item not found
+ *       500:
+ *         description: Internal server error
+ */
+
 router.post("/createUserItem", authenticateJWT, itemController.createUserItem);
 router.get("/userItemLost", authenticateJWT, itemController.getUserLostItem);
 router.put("/update-status/:id", authenticateJWT, itemController.updateItemStatus)
 router.get("/getAllUserItem", authenticateJWT, itemController.getAllUserItem);
+router.put("/update-item/:id", authenticateJWT, itemController.updateUserItem)
+
 
 export default router;

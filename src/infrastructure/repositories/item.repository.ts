@@ -51,8 +51,19 @@ export class ItemRepository {
 
   async getAllItem(user_id: number, tx = prisma) {
     return await tx.user_item.findMany({
-      where: {  
+      where: {
         user_id,
+      },
+    });
+  }
+
+  async updateUserItem(data: any, id: number, tx = prisma) {
+    return await tx.user_item.update({
+      where: {
+        id,
+      },
+      data: {
+        ...data,
       },
     });
   }
