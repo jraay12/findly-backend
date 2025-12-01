@@ -114,7 +114,7 @@ CREATE TABLE `Report` (
     `claim_address` VARCHAR(191) NULL,
     `additional_notes` TEXT NULL,
     `upload_image_url` VARCHAR(191) NULL,
-    `created_by` INTEGER NOT NULL,
+    `created_by` INTEGER NULL,
     `updated_by` INTEGER NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,

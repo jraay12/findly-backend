@@ -38,4 +38,4 @@ export const updateAdminItemStatusUsecase = new UpdateAdminItemStatusUsecase(ite
 export const updateAdminItemUsecase = new UpdateAdminItemUsecase(itemRepository);
 export const createOrderUsecase = new CreateOrderUsecase(itemRepository);
 export const getOrdersUsecase = new GetOrdersUsecase(itemRepository);
-export const submitReport = new SubmitReport(itemRepository);
+export const submitReport = new SubmitReport(itemRepository, nodemailerService);
