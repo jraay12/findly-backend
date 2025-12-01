@@ -714,6 +714,152 @@ import { multerUpload } from "../../infrastructure/upload/multerConfig";
  */
 
 
+// create admin item
+/**
+ * @swagger
+ * /items/createAdminItem:
+ *   post:
+ *     summary: Create a new admin item
+ *     tags: [AdminItems]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - product_title
+ *               - price
+ *               - available_quantity
+ *               - category
+ *               - stock_status
+ *             properties:
+ *               product_title:
+ *                 type: string
+ *                 example: "Wireless Mouse"
+ *               product_description:
+ *                 type: string
+ *                 nullable: true
+ *                 example: "Ergonomic wireless mouse with 2.4GHz connectivity"
+ *               price:
+ *                 type: number
+ *                 format: decimal
+ *                 example: 29.99
+ *               available_quantity:
+ *                 type: integer
+ *                 example: 100
+ *               category:
+ *                 type: string
+ *                 example: "Electronics"
+ *               badge:
+ *                 type: string
+ *                 nullable: true
+ *                 example: "Best Seller"
+ *               stock_status:
+ *                 type: string
+ *                 example: "in_stock"
+ *               image:
+ *                 type: string
+ *                 format: binary
+ *                 nullable: true
+ *                 description: Optional product image file
+ *     responses:
+ *       201:
+ *         description: Item created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: integer
+ *                   example: 1
+ *                 product_title:
+ *                   type: string
+ *                   example: "Wireless Mouse"
+ *                 product_description:
+ *                   type: string
+ *                   nullable: true
+ *                   example: "Ergonomic wireless mouse with 2.4GHz connectivity"
+ *                 price:
+ *                   type: number
+ *                   format: decimal
+ *                   example: 29.99
+ *                 available_quantity:
+ *                   type: integer
+ *                   example: 100
+ *                 category:
+ *                   type: string
+ *                   example: "Electronics"
+ *                 badge:
+ *                   type: string
+ *                   nullable: true
+ *                   example: "Best Seller"
+ *                 stock_status:
+ *                   type: string
+ *                   example: "in_stock"
+ *                 product_image_url:
+ *                   type: string
+ *                   nullable: true
+ *                   example: "/findly-upload/admin_item_images/12345_image.png"
+ *                 created_by:
+ *                   type: string
+ *                   example: "admin@example.com"
+ *                 updated_by:
+ *                   type: string
+ *                   example: "admin@example.com"
+ *                 createdAt:
+ *                   type: string
+ *                   format: date-time
+ *                   example: "2025-12-01T03:00:00Z"
+ *                 updatedAt:
+ *                   type: string
+ *                   format: date-time
+ *                   example: "2025-12-01T03:00:00Z"
+ *       400:
+ *         description: Invalid input - Missing required fields
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "product_title is required"
+ *       401:
+ *         description: Unauthorized - Invalid or missing token
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Unauthorized"
+ *       403:
+ *         description: Forbidden - Admin access required
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Admin access required"
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Internal server error"
+ */
+
 router.post(  
   "/createUserItem",
   authenticateJWT,
@@ -740,5 +886,12 @@ router.get(
 );
 router.get("/send-qr-notification/:token", itemController.sendQRNotification);
 router.delete("/delete-item/:id", authenticateJWT, itemController.deleteItem);
+
+router.post(  
+  "/createAdminItem",
+  authenticateJWT,
+  multerUpload.single("image"),
+  itemController.createAdminItem
+);
 
 export default router;
