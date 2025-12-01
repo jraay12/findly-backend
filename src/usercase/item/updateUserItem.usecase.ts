@@ -8,6 +8,13 @@ export class UpdateUserItemUsecase {
 
     if (!item) throw new Error("Item not found");
     // Create item in repository
-    return await this.itemRepository.updateUserItem({ ...data }, item_id);
+
+    const payload = {
+      item_name: data.item_name,
+      status: data.status,
+      item_description: data.item_description,
+      updated_by: data.updated_by,
+    };
+    return await this.itemRepository.updateUserItem(payload, item_id);
   }
 }

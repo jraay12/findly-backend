@@ -192,6 +192,12 @@ export class ItemRepository {
             },
           },
         },
+        user_item: {
+          select: {
+            qr_image_url: true, 
+            allow_download_image: true
+          },
+        },
         user_information: true,
       },
     });
@@ -201,6 +207,22 @@ export class ItemRepository {
     return await tx.report.create({
       data: {
         ...data,
+      },
+    });
+  }
+
+  async orderToggleStatus(id: number, tx = prisma) {
+    return await tx.orders.update({
+      where: {
+        id,
+      },
+      data: {
+        status: "Delivered",
+        user_item: {
+          update: {
+            allow_download_image: true,
+          },
+        },
       },
     });
   }

@@ -1277,7 +1277,7 @@ router.put(
   itemController.updateItemStatus
 );
 router.get("/getAllUserItem", authenticateJWT, itemController.getAllUserItem);
-router.put("/update-item/:id", authenticateJWT, itemController.updateUserItem);
+router.patch("/update-item/:id", authenticateJWT, itemController.updateUserItem);
 router.get(
   "/get-specific-item/:id",
   authenticateJWT,
@@ -1316,5 +1316,7 @@ router.post("/createOrder", authenticateJWT, itemController.createOrder);
 router.get("/getOrder", authenticateJWT, itemController.getOrder);
 
 router.post("/submitReport/:token", itemController.submitReport);
+
+router.post("/order-toggle/:id", authenticateJWT, itemController.orderToggle);
 
 export default router;

@@ -16,6 +16,7 @@ import {
   createOrderUsecase,
   getOrdersUsecase,
   submitReport,
+  orderToggle,
 } from "../../usercase/item";
 
 interface MulterRequest extends Request {
@@ -254,6 +255,16 @@ class ItemController {
         },
         token
       );
+      return res.json(result);
+    } catch (err: any) {
+      return res.status(400).json({ error: err.message });
+    }
+  }
+
+  async orderToggle(req: Request, res: Response) {
+    try {
+      const id = parseInt(req.params.id);
+      const result = await orderToggle.execute(id);
       return res.json(result);
     } catch (err: any) {
       return res.status(400).json({ error: err.message });
