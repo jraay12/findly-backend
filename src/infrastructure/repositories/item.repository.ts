@@ -1,5 +1,6 @@
 import { prisma } from "../../infrastructure/prisma/client";
 import { CreateUserItemDTO } from "../../domain/dto/item.dto";
+import { create } from "domain";
 
 export class ItemRepository {
   async createUserItem(data: CreateUserItemDTO, tx = prisma) {
@@ -147,6 +148,34 @@ export class ItemRepository {
       },
       data: {
         ...data,
+      },
+    });
+  }
+
+  async createOrder(data: any, tx = prisma) {
+    const { item_id, quantity, price, ...orderData } = data;
+
+    return await tx.orders.create({
+      data: {
+        ...orderData,
+        orderDetails: {
+          create: {
+            item_id,
+            quantity,
+            price,
+          },
+        },
+      },
+    });
+  }
+
+  async finduserById(id: number, tx = prisma) {
+    return await tx.user.findUnique({
+      where: {
+        id,
+      },
+      include: {
+        user_information: true,
       },
     });
   }

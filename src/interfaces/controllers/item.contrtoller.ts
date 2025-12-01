@@ -13,6 +13,7 @@ import {
   getAdminItemUsecase,
   updateAdminItemStatusUsecase,
   updateAdminItemUsecase,
+  createOrderUsecase,
 } from "../../usercase/item";
 
 interface MulterRequest extends Request {
@@ -212,6 +213,21 @@ class ItemController {
     try {
       const id = parseInt(req.params.id);
       const result = await updateAdminItemUsecase.execute(id, req.body);
+      return res.json(result);
+    } catch (err: any) {
+      return res.status(400).json({ error: err.message });
+    }
+  }
+
+  async createOrder(req: Request, res: Response) {
+    try {
+      const user = (req as any).user;
+      const user_id = user.id;
+      const result = await createOrderUsecase.execute({
+        ...req.body,
+        customer_id: Number(user_id),
+        created_by: Number(user_id),
+      });
       return res.json(result);
     } catch (err: any) {
       return res.status(400).json({ error: err.message });

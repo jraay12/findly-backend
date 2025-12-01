@@ -69,10 +69,13 @@ model Orders {
   customer_id      Int
   user_item        user_item      @relation(fields: [user_item_id], references: [id])
   user_item_id     Int
-  status           String
+  status           String        @default("Pending")
+  address          String?
+  contact_number   String?
+  additional_notes String?
   payment_method   String
-  created_by       String
-  updated_by       String
+  created_by       Int
+  updated_by       Int?
   createdAt        DateTime       @default(now())
   updatedAt        DateTime       @updatedAt
   

@@ -1157,4 +1157,11 @@ router.patch(
   authenticateJWT,
   itemController.updateAdminItem
 );
+
+router.post(
+  "/createOrder",
+  authenticateJWT,
+  itemController.createOrder
+);
+
 export default router;
