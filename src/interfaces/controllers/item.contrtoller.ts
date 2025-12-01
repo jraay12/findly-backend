@@ -15,6 +15,7 @@ import {
   updateAdminItemUsecase,
   createOrderUsecase,
   getOrdersUsecase,
+  submitReport,
 } from "../../usercase/item";
 
 interface MulterRequest extends Request {
@@ -238,6 +239,21 @@ class ItemController {
   async getOrder(req: Request, res: Response) {
     try {
       const result = await getOrdersUsecase.execute();
+      return res.json(result);
+    } catch (err: any) {
+      return res.status(400).json({ error: err.message });
+    }
+  }
+
+  async submitReport(req: Request, res: Response) {
+    try {
+      const token = req.params.token;
+      const result = await submitReport.execute(
+        {
+          ...req.body,
+        },
+        token
+      );
       return res.json(result);
     } catch (err: any) {
       return res.status(400).json({ error: err.message });

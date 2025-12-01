@@ -1314,4 +1314,7 @@ router.patch(
 router.post("/createOrder", authenticateJWT, itemController.createOrder);
 
 router.get("/getOrder", authenticateJWT, itemController.getOrder);
+
+router.post("/submitReport/:token", itemController.submitReport);
+
 export default router;

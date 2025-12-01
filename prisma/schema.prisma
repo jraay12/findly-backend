@@ -124,7 +124,7 @@ model Report {
   claim_address    String?
   additional_notes String?  @db.Text
   upload_image_url String?
-  created_by       Int
+  created_by       Int?
   updated_by       Int?
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt

@@ -196,4 +196,12 @@ export class ItemRepository {
       },
     });
   }
+
+  async submitReport(data: any, tx = prisma) {
+    return await tx.report.create({
+      data: {
+        ...data,
+      },
+    });
+  }
 }
