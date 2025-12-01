@@ -999,7 +999,6 @@ import { multerUpload } from "../../infrastructure/upload/multerConfig";
  *                   example: "Internal server error"
  */
 
-
 // update admin iteme status
 // update admin item status
 /**
@@ -1110,6 +1109,163 @@ import { multerUpload } from "../../infrastructure/upload/multerConfig";
  *                   example: "Internal server error"
  */
 
+
+// get orders
+/**
+ * @swagger
+ * /items/getOrder:
+ *   get:
+ *     summary: Get all orders
+ *     description: Retrieve a list of all orders placed by customers
+ *     tags: [Orders]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *           default: 1
+ *         description: Page number for pagination
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *           default: 10
+ *         description: Number of orders per page
+ *       - in: query
+ *         name: status
+ *         schema:
+ *           type: string
+ *           enum: [Pending, Completed, Cancelled]
+ *         description: Filter orders by status
+ *       - in: query
+ *         name: search
+ *         schema:
+ *           type: string
+ *         description: Search by customer name or item name
+ *     responses:
+ *       200:
+ *         description: Successfully retrieved orders
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 orders:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       id:
+ *                         type: integer
+ *                         example: 1
+ *                       customer_id:
+ *                         type: integer
+ *                         example: 1
+ *                       user_item_id:
+ *                         type: integer
+ *                         example: 2
+ *                       contact_number:
+ *                         type: string
+ *                         example: "0912345678"
+ *                       address:
+ *                         type: string
+ *                         example: "123 Main St"
+ *                       payment_method:
+ *                         type: string
+ *                         example: "COD"
+ *                       additional_notes:
+ *                         type: string
+ *                         nullable: true
+ *                         example: "Leave at the front desk"
+ *                       status:
+ *                         type: string
+ *                         example: "Pending"
+ *                       created_by:
+ *                         type: string
+ *                         example: "admin@example.com"
+ *                       updated_by:
+ *                         type: string
+ *                         nullable: true
+ *                         example: "admin@example.com"
+ *                       createdAt:
+ *                         type: string
+ *                         format: date-time
+ *                         example: "2025-12-01T03:00:00Z"
+ *                       updatedAt:
+ *                         type: string
+ *                         format: date-time
+ *                         example: "2025-12-01T03:00:00Z"
+ *                       orderDetails:
+ *                         type: array
+ *                         items:
+ *                           type: object
+ *                           properties:
+ *                             id:
+ *                               type: integer
+ *                               example: 1
+ *                             item_id:
+ *                               type: integer
+ *                               example: 5
+ *                             quantity:
+ *                               type: integer
+ *                               example: 2
+ *                             price:
+ *                               type: number
+ *                               format: decimal
+ *                               example: 1500.50
+ *                             order_id:
+ *                               type: integer
+ *                               example: 1
+ *                             item_name:
+ *                               type: string
+ *                               example: "Laptop"
+ *                 total:
+ *                   type: integer
+ *                   example: 20
+ *                   description: Total number of orders
+ *                 page:
+ *                   type: integer
+ *                   example: 1
+ *                   description: Current page number
+ *                 totalPages:
+ *                   type: integer
+ *                   example: 2
+ *                   description: Total number of pages
+ *       401:
+ *         description: Unauthorized - Invalid or missing token
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Unauthorized"
+ *       403:
+ *         description: Forbidden - Admin access required
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Admin access required"
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Internal server error"
+ */
+
+
 router.post(
   "/createUserItem",
   authenticateJWT,
@@ -1158,10 +1314,7 @@ router.patch(
   itemController.updateAdminItem
 );
 
-router.post(
-  "/createOrder",
-  authenticateJWT,
-  itemController.createOrder
-);
+router.post("/createOrder", authenticateJWT, itemController.createOrder);
 
+router.get("/getOrder", authenticateJWT, itemController.getOrder);
 export default router;

@@ -14,6 +14,8 @@ import { GetAdminItemUsecase } from "./getAdminItem.usecase";
 import { UpdateAdminItemStatusUsecase } from "./updateAdminItemStatus.usecase";
 import { UpdateAdminItemUsecase } from "./updateAdminItem.usecase";
 import { CreateOrderUsecase } from "./createOrder.usecase";
+import { GetOrdersUsecase } from "./getOrders.usecase";
+
 // Initialize repository and mailer
 const itemRepository = new ItemRepository();
 const nodemailerService = new NodemailerService();
@@ -35,3 +37,4 @@ export const getAdminItemUsecase = new GetAdminItemUsecase(itemRepository);
 export const updateAdminItemStatusUsecase = new UpdateAdminItemStatusUsecase(itemRepository);
 export const updateAdminItemUsecase = new UpdateAdminItemUsecase(itemRepository);
 export const createOrderUsecase = new CreateOrderUsecase(itemRepository);
+export const getOrdersUsecase = new GetOrdersUsecase(itemRepository);

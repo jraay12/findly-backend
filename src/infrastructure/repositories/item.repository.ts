@@ -179,4 +179,21 @@ export class ItemRepository {
       },
     });
   }
+
+  async getOrders(tx = prisma) {
+    return await tx.orders.findMany({
+      include: {
+        orderDetails: {
+          include: {
+            item: {
+              select: {
+                product_title: true,
+              },
+            },
+          },
+        },
+        user_information: true,
+      },
+    });
+  }
 }
