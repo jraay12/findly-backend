@@ -105,6 +105,7 @@ export class ItemRepository {
   }
 
   async createAdminItem(data: any, tx = prisma) {
+    // console.log(data)
     return await tx.items.create({
       data: {
         ...data,
@@ -116,6 +117,25 @@ export class ItemRepository {
     return await tx.items.findMany({
       where: {
         status: true,
+      },
+    });
+  }
+
+  async updateAdminItemStatus(id: number, tx = prisma) {
+    return await tx.items.update({
+      where: {
+        id,
+      },
+      data: {
+        status: false,
+      },
+    });
+  }
+
+  async findAdminItemById(id: number, tx = prisma) {
+    return await tx.items.findUnique({
+      where: {
+        id,
       },
     });
   }

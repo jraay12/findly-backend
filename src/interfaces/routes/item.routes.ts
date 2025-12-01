@@ -667,7 +667,6 @@ import { multerUpload } from "../../infrastructure/upload/multerConfig";
  *         description: Internal server error
  */
 
-
 // delete item
 /**
  * @swagger
@@ -712,7 +711,6 @@ import { multerUpload } from "../../infrastructure/upload/multerConfig";
  *       500:
  *         description: Internal server error
  */
-
 
 // create admin item
 /**
@@ -1001,7 +999,118 @@ import { multerUpload } from "../../infrastructure/upload/multerConfig";
  *                   example: "Internal server error"
  */
 
-router.post(  
+
+// update admin iteme status
+// update admin item status
+/**
+ * @swagger
+ * /items/updateAdminItemStatus/{id}:
+ *   post:
+ *     summary: Update admin item status
+ *     description: Update the stock status and badge of an existing admin item.
+ *     tags: [AdminItems]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID of the item to update
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               stock_status:
+ *                 type: string
+ *                 enum: [in_stock, out_of_stock, pre_order]
+ *                 example: "in_stock"
+ *               badge:
+ *                 type: string
+ *                 nullable: true
+ *                 example: "Best Seller"
+ *             required:
+ *               - stock_status
+ *     responses:
+ *       200:
+ *         description: Successfully updated item status
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: "Item status updated successfully"
+ *                 updatedItem:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: integer
+ *                       example: 1
+ *                     stock_status:
+ *                       type: string
+ *                       example: "in_stock"
+ *                     badge:
+ *                       type: string
+ *                       example: "Best Seller"
+ *                     updated_by:
+ *                       type: string
+ *                       example: "admin@example.com"
+ *                     updatedAt:
+ *                       type: string
+ *                       format: date-time
+ *                       example: "2025-12-01T04:00:00Z"
+ *       400:
+ *         description: Bad request - Invalid data provided
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Invalid stock_status value"
+ *       401:
+ *         description: Unauthorized - Invalid or missing token
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Unauthorized"
+ *       404:
+ *         description: Item not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Item not found"
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Internal server error"
+ */
+
+router.post(
   "/createUserItem",
   authenticateJWT,
   multerUpload.single("image"),
@@ -1028,17 +1137,18 @@ router.get(
 router.get("/send-qr-notification/:token", itemController.sendQRNotification);
 router.delete("/delete-item/:id", authenticateJWT, itemController.deleteItem);
 
-router.post(  
+router.post(
   "/createAdminItem",
   authenticateJWT,
   multerUpload.single("image"),
   itemController.createAdminItem
 );
 
-router.get(  
-  "/getAdminItem",
-  authenticateJWT,
-  itemController.getAdminItem
-);
+router.get("/getAdminItem", authenticateJWT, itemController.getAdminItem);
 
+router.post(
+  "/updateAdminItemStatus/:id",
+  authenticateJWT,
+  itemController.updateAdminItemStatus
+);
 export default router;

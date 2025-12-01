@@ -11,6 +11,8 @@ import { NodemailerService } from "../../infrastructure/email/NodeMailerService"
 import { DeleteItemUsecase } from "./deleteItem.usecase";
 import { CreateAdminItemUsecase } from "./createAdminItem.usecase";
 import { GetAdminItemUsecase } from "./getAdminItem.usecase";
+import { UpdateAdminItemStatusUsecase } from "./updateAdminItemStatus.usecase";
+
 // Initialize repository and mailer
 const itemRepository = new ItemRepository();
 const nodemailerService = new NodemailerService();
@@ -29,3 +31,4 @@ export const sendQrScanNotificationUsecase = new SendQrScanNotificationUsecase(n
 export const deleteItemUsecase = new DeleteItemUsecase(itemRepository);
 export const createAdminItemUsecase = new CreateAdminItemUsecase(itemRepository);
 export const getAdminItemUsecase = new GetAdminItemUsecase(itemRepository);
+export const updateAdminItemStatusUsecase = new UpdateAdminItemStatusUsecase(itemRepository);

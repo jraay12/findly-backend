@@ -91,8 +91,9 @@ CREATE TABLE `Items` (
     `badge` VARCHAR(191) NULL,
     `stock_status` VARCHAR(191) NOT NULL,
     `product_image_url` VARCHAR(191) NULL,
-    `created_by` VARCHAR(191) NOT NULL,
-    `updated_by` VARCHAR(191) NOT NULL,
+    `status` BOOLEAN NOT NULL DEFAULT true,
+    `created_by` INTEGER NOT NULL,
+    `updated_by` INTEGER NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
 
@@ -110,8 +111,8 @@ CREATE TABLE `Report` (
     `claim_address` VARCHAR(191) NULL,
     `additional_notes` TEXT NULL,
     `upload_image_url` VARCHAR(191) NULL,
-    `created_by` VARCHAR(191) NOT NULL,
-    `updated_by` VARCHAR(191) NOT NULL,
+    `created_by` INTEGER NOT NULL,
+    `updated_by` INTEGER NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
 

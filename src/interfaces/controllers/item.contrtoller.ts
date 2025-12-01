@@ -11,6 +11,7 @@ import {
   deleteItemUsecase,
   createAdminItemUsecase,
   getAdminItemUsecase,
+  updateAdminItemStatusUsecase,
 } from "../../usercase/item";
 
 interface MulterRequest extends Request {
@@ -191,6 +192,16 @@ class ItemController {
         successs: true,
         result,
       });
+    } catch (err: any) {
+      return res.status(400).json({ error: err.message });
+    }
+  }
+
+  async updateAdminItemStatus(req: Request, res: Response) {
+    try {
+      const id = parseInt(req.params.id);
+      const result = await updateAdminItemStatusUsecase.execute(id);
+      return res.json(result);
     } catch (err: any) {
       return res.status(400).json({ error: err.message });
     }
