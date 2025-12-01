@@ -64,8 +64,8 @@ CREATE TABLE `Orders` (
     `contact_number` VARCHAR(191) NULL,
     `additional_notes` VARCHAR(191) NULL,
     `payment_method` VARCHAR(191) NOT NULL,
-    `created_by` VARCHAR(191) NOT NULL,
-    `updated_by` VARCHAR(191) NULL,
+    `created_by` INTEGER NOT NULL,
+    `updated_by` INTEGER NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
 

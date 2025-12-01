@@ -1109,7 +1109,6 @@ import { multerUpload } from "../../infrastructure/upload/multerConfig";
  *                   example: "Internal server error"
  */
 
-
 // get orders
 /**
  * @swagger
@@ -1265,7 +1264,6 @@ import { multerUpload } from "../../infrastructure/upload/multerConfig";
  *                   example: "Internal server error"
  */
 
-
 router.post(
   "/createUserItem",
   authenticateJWT,
@@ -1287,7 +1285,6 @@ router.get(
 );
 router.get(
   "/get-specific-token-item/:token",
-  authenticateJWT,
   itemController.getSpecificItemByToken
 );
 router.get("/send-qr-notification/:token", itemController.sendQRNotification);

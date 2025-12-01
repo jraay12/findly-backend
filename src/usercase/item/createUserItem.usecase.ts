@@ -6,11 +6,15 @@ import fs from "fs";
 import path from "path";
 
 export class CreateUserItemUsecase {
-  constructor(private itemRepository: ItemRepository) {}  
+  constructor(private itemRepository: ItemRepository) {}
 
   async execute(data: CreateUserItemDTO, file: Express.Multer.File) {
     // 1. Save the uploaded image
-    const uploadsFolder = path.join(process.cwd(), "findly-upload", "user_item_images");
+    const uploadsFolder = path.join(
+      process.cwd(),
+      "findly-upload",
+      "user_item_images"
+    );
     if (!fs.existsSync(uploadsFolder)) {
       fs.mkdirSync(uploadsFolder, { recursive: true });
     }
@@ -30,7 +34,7 @@ export class CreateUserItemUsecase {
       ...data,
       qr_token: qrToken,
       image_url: imageUrl,
-    })
+    });
 
     // 4. Generate QR code asynchronously
     this.generateQrImageAsync(created.id, qrToken);
@@ -40,13 +44,19 @@ export class CreateUserItemUsecase {
 
   private async generateQrImageAsync(itemId: number, qrToken: string) {
     try {
-      const qrFolder = path.join(process.cwd(), "findly-upload", "user_item_qr");
+      const qrFolder = path.join(
+        process.cwd(),
+        "findly-upload",
+        "user_item_qr"
+      );
       if (!fs.existsSync(qrFolder)) {
         fs.mkdirSync(qrFolder, { recursive: true });
       }
 
       const qrFile = path.join(qrFolder, `qr_${itemId}.png`);
-      const qrUrl = `${process.env.FRONTEND_URL}/findly-upload/qr-images/qr_${itemId}.png`;
+
+      // Include token in QR URL
+      const qrUrl = `${process.env.FRONTEND_URL}/report-item?token=${qrToken}`;
 
       // Generate QR image
       await QRCode.toFile(qrFile, qrUrl, { errorCorrectionLevel: "H" });
