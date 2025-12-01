@@ -107,7 +107,15 @@ export class ItemRepository {
   async createAdminItem(data: any, tx = prisma) {
     return await tx.items.create({
       data: {
-        ...data,  
+        ...data,
+      },
+    });
+  }
+
+  async getAdminItems(tx = prisma) {
+    return await tx.items.findMany({
+      where: {
+        status: true,
       },
     });
   }

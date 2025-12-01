@@ -860,6 +860,147 @@ import { multerUpload } from "../../infrastructure/upload/multerConfig";
  *                   example: "Internal server error"
  */
 
+// get admin item
+/**
+ * @swagger
+ * /items/getAdminItem:
+ *   get:
+ *     summary: Get all admin items
+ *     description: Retrieve a list of all items in the admin shop
+ *     tags: [AdminItems]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *           default: 1
+ *         description: Page number for pagination
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *           default: 10
+ *         description: Number of items per page
+ *       - in: query
+ *         name: category
+ *         schema:
+ *           type: string
+ *         description: Filter by category
+ *       - in: query
+ *         name: stock_status
+ *         schema:
+ *           type: string
+ *           enum: [in_stock, out_of_stock, pre_order]
+ *         description: Filter by stock status
+ *       - in: query
+ *         name: search
+ *         schema:
+ *           type: string
+ *         description: Search by product title or description
+ *     responses:
+ *       200:
+ *         description: Successfully retrieved items
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 items:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       id:
+ *                         type: integer
+ *                         example: 1
+ *                       product_title:
+ *                         type: string
+ *                         example: "Wireless Mouse"
+ *                       product_description:
+ *                         type: string
+ *                         nullable: true
+ *                         example: "Ergonomic wireless mouse with 2.4GHz connectivity"
+ *                       price:
+ *                         type: number
+ *                         format: decimal
+ *                         example: 29.99
+ *                       available_quantity:
+ *                         type: integer
+ *                         example: 100
+ *                       category:
+ *                         type: string
+ *                         example: "Electronics"
+ *                       badge:
+ *                         type: string
+ *                         nullable: true
+ *                         example: "Best Seller"
+ *                       stock_status:
+ *                         type: string
+ *                         example: "in_stock"
+ *                       product_image_url:
+ *                         type: string
+ *                         nullable: true
+ *                         example: "/findly-upload/admin_item_images/12345_image.png"
+ *                       created_by:
+ *                         type: string
+ *                         example: "admin@example.com"
+ *                       updated_by:
+ *                         type: string
+ *                         example: "admin@example.com"
+ *                       createdAt:
+ *                         type: string
+ *                         format: date-time
+ *                         example: "2025-12-01T03:00:00Z"
+ *                       updatedAt:
+ *                         type: string
+ *                         format: date-time
+ *                         example: "2025-12-01T03:00:00Z"
+ *                 total:
+ *                   type: integer
+ *                   example: 50
+ *                   description: Total number of items
+ *                 page:
+ *                   type: integer
+ *                   example: 1
+ *                   description: Current page number
+ *                 totalPages:
+ *                   type: integer
+ *                   example: 5
+ *                   description: Total number of pages
+ *       401:
+ *         description: Unauthorized - Invalid or missing token
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Unauthorized"
+ *       403:
+ *         description: Forbidden - Admin access required
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Admin access required"
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Internal server error"
+ */
+
 router.post(  
   "/createUserItem",
   authenticateJWT,
@@ -892,6 +1033,12 @@ router.post(
   authenticateJWT,
   multerUpload.single("image"),
   itemController.createAdminItem
+);
+
+router.get(  
+  "/getAdminItem",
+  authenticateJWT,
+  itemController.getAdminItem
 );
 
 export default router;

@@ -9,7 +9,8 @@ import {
   getSpecificItemByTokenUsecase,
   sendQrScanNotificationUsecase,
   deleteItemUsecase,
-  createAdminItemUsecase
+  createAdminItemUsecase,
+  getAdminItemUsecase,
 } from "../../usercase/item";
 
 interface MulterRequest extends Request {
@@ -177,6 +178,18 @@ class ItemController {
       return res.json({
         message: "Create User Item Successfully",
         data: result,
+      });
+    } catch (err: any) {
+      return res.status(400).json({ error: err.message });
+    }
+  }
+
+  async getAdminItem(req: Request, res: Response) {
+    try {
+      const result = await getAdminItemUsecase.execute();
+      return res.json({
+        successs: true,
+        result,
       });
     } catch (err: any) {
       return res.status(400).json({ error: err.message });

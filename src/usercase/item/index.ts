@@ -10,6 +10,7 @@ import { SendQrScanNotificationUsecase } from "./SendQrScanNotificationUsecase.u
 import { NodemailerService } from "../../infrastructure/email/NodeMailerService";
 import { DeleteItemUsecase } from "./deleteItem.usecase";
 import { CreateAdminItemUsecase } from "./createAdminItem.usecase";
+import { GetAdminItemUsecase } from "./getAdminItem.usecase";
 // Initialize repository and mailer
 const itemRepository = new ItemRepository();
 const nodemailerService = new NodemailerService();
@@ -27,3 +28,4 @@ export const getSpecificItemByTokenUsecase = new GetSpecificItemByTokenUsecase(i
 export const sendQrScanNotificationUsecase = new SendQrScanNotificationUsecase(nodemailerService, itemRepository);
 export const deleteItemUsecase = new DeleteItemUsecase(itemRepository);
 export const createAdminItemUsecase = new CreateAdminItemUsecase(itemRepository);
+export const getAdminItemUsecase = new GetAdminItemUsecase(itemRepository);
