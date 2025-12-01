@@ -139,4 +139,15 @@ export class ItemRepository {
       },
     });
   }
+
+  async updateAdminItem(id: number, data: any, tx = prisma) {
+    return await tx.items.update({
+      where: {
+        id,
+      },
+      data: {
+        ...data,
+      },
+    });
+  }
 }

@@ -1151,4 +1151,10 @@ router.post(
   authenticateJWT,
   itemController.updateAdminItemStatus
 );
+
+router.patch(
+  "/updateAdminItem/:id",
+  authenticateJWT,
+  itemController.updateAdminItem
+);
 export default router;
