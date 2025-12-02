@@ -29,6 +29,6 @@ export class LoginUserUseCase {
       { expiresIn: "24h" }
     );
 
-    return { token };
+    return { token, role: user.role };
   }
 }
