@@ -194,8 +194,8 @@ export class ItemRepository {
         },
         user_item: {
           select: {
-            qr_image_url: true, 
-            allow_download_image: true
+            qr_image_url: true,
+            allow_download_image: true,
           },
         },
         user_information: true,
@@ -224,6 +224,18 @@ export class ItemRepository {
           },
         },
       },
+    });
+  }
+
+  async itemReportFoundByUser(user_id: number, tx = prisma) {
+    return await tx.report.findMany({
+      // where: {
+      //   customer_id: user_id,
+      // },
+      // include: {
+      //   user_information: true,
+      //   user_item: true,
+      // },
     });
   }
 }

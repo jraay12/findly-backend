@@ -1319,4 +1319,7 @@ router.post("/submitReport/:token", itemController.submitReport);
 
 router.post("/order-toggle/:id", authenticateJWT, itemController.orderToggle);
 
+router.get("/item-report-found", authenticateJWT, itemController.itemReportFound);
+
+
 export default router;

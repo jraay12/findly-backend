@@ -17,10 +17,10 @@ import { CreateOrderUsecase } from "./createOrder.usecase";
 import { GetOrdersUsecase } from "./getOrders.usecase";
 import { SubmitReport } from "./submitReport.usecase";
 import { OrderToggleUsecase } from "./orderToggle.usecase";
+import { ItemReportFoundUsecase } from "./itemReportFound.usecase";
 // Initialize repository and mailer
 const itemRepository = new ItemRepository();
 const nodemailerService = new NodemailerService();
-
 
 export const createUserItemUsecase = new CreateUserItemUsecase(itemRepository);
 export const getUserLostItemUsecase = new GetUserLostItemUsecase(
@@ -29,16 +29,31 @@ export const getUserLostItemUsecase = new GetUserLostItemUsecase(
 export const updateStatusUsecase = new UpdateStatusUsecase(itemRepository);
 export const getAllUserItemUsecase = new GetAllUserItemUsecase(itemRepository);
 export const updateUserItemUsecase = new UpdateUserItemUsecase(itemRepository);
-export const getSpecificItemUsecase = new GetSpecificItemUsecase(itemRepository);
-export const getSpecificItemByTokenUsecase = new GetSpecificItemByTokenUsecase(itemRepository);
-export const sendQrScanNotificationUsecase = new SendQrScanNotificationUsecase(nodemailerService, itemRepository);
+export const getSpecificItemUsecase = new GetSpecificItemUsecase(
+  itemRepository
+);
+export const getSpecificItemByTokenUsecase = new GetSpecificItemByTokenUsecase(
+  itemRepository
+);
+export const sendQrScanNotificationUsecase = new SendQrScanNotificationUsecase(
+  nodemailerService,
+  itemRepository
+);
 export const deleteItemUsecase = new DeleteItemUsecase(itemRepository);
-export const createAdminItemUsecase = new CreateAdminItemUsecase(itemRepository);
+export const createAdminItemUsecase = new CreateAdminItemUsecase(
+  itemRepository
+);
 export const getAdminItemUsecase = new GetAdminItemUsecase(itemRepository);
-export const updateAdminItemStatusUsecase = new UpdateAdminItemStatusUsecase(itemRepository);
-export const updateAdminItemUsecase = new UpdateAdminItemUsecase(itemRepository);
+export const updateAdminItemStatusUsecase = new UpdateAdminItemStatusUsecase(
+  itemRepository
+);
+export const updateAdminItemUsecase = new UpdateAdminItemUsecase(
+  itemRepository
+);
 export const createOrderUsecase = new CreateOrderUsecase(itemRepository);
 export const getOrdersUsecase = new GetOrdersUsecase(itemRepository);
 export const submitReport = new SubmitReport(itemRepository, nodemailerService);
 export const orderToggle = new OrderToggleUsecase(itemRepository);
-
+export const itemReportFoundUsecase = new ItemReportFoundUsecase(
+  itemRepository
+);

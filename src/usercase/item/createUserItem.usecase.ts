@@ -56,7 +56,7 @@ export class CreateUserItemUsecase {
       const qrFile = path.join(qrFolder, `qr_${itemId}.png`);
 
       // Include token in QR URL
-      const qrUrl = `${process.env.FRONTEND_URL}/report-item?token=${qrToken}`;
+      const qrUrl = `${process.env.FRONTEND_URL}report-item?token=${qrToken}`;
 
       // Generate QR image
       await QRCode.toFile(qrFile, qrUrl, { errorCorrectionLevel: "H" });
