@@ -1264,6 +1264,74 @@ import { multerUpload } from "../../infrastructure/upload/multerConfig";
  *                   example: "Internal server error"
  */
 
+/**
+ * @swagger
+ * /items/item-report-found:
+ *   get:
+ *     summary: Get all found item reports
+ *     description: Retrieve a list of all items reported as found.
+ *     tags: [Items]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Successfully retrieved found item reports
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: integer
+ *                     example: 12
+ *                   name:
+ *                     type: string
+ *                     example: "Black Wallet"
+ *                   description:
+ *                     type: string
+ *                     example: "Found near the lobby entrance"
+ *                   location:
+ *                     type: string
+ *                     example: "Lobby Area"
+ *                   date_found:
+ *                     type: string
+ *                     format: date
+ *                     example: "2025-01-15"
+ *                   status:
+ *                     type: string
+ *                     example: "Found"
+ *                   created_by:
+ *                     type: string
+ *                     example: "staff@example.com"
+ *                   createdAt:
+ *                     type: string
+ *                     format: date-time
+ *                     example: "2025-12-01T05:30:00Z"
+ *       401:
+ *         description: Unauthorized - Missing or invalid token
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Unauthorized"
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Internal server error"
+ */
+
+
 router.post(
   "/createUserItem",
   authenticateJWT,

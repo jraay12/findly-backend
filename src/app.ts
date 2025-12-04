@@ -10,7 +10,7 @@ const app = express();
 app.use(express.json());
 app.use(
   cors({
-    origin: ["http://localhost:3005", 'http://192.168.1.166:3005', 'http://31.97.108.149/findly/'],
+    origin: ["http://localhost:3005", 'http://192.168.68.109:3005', 'http://31.97.108.149/findly/'],
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     credentials: true, // if you need cookies
   })
@@ -29,7 +29,7 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: "http://localhost:3000",
+        url: "http://localhost:8000/",
         description: "Local server",
       },
     ],
