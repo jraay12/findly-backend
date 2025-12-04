@@ -18,6 +18,7 @@ import {
   submitReport,
   orderToggle,
   itemReportFoundUsecase,
+  getAllLostUserItemUsecase,
 } from "../../usercase/item";
 
 interface MulterRequest extends Request {
@@ -277,6 +278,15 @@ class ItemController {
       const user = (req as any).user;
       const user_id = user.id;
       const result = await itemReportFoundUsecase.execute(user_id);
+      return res.json(result);
+    } catch (err: any) {
+      return res.status(400).json({ error: err.message });
+    }
+  }
+
+  async getAllLostItem(req: Request, res: Response) {
+    try {
+      const result = await getAllLostUserItemUsecase.execute();
       return res.json(result);
     } catch (err: any) {
       return res.status(400).json({ error: err.message });

@@ -238,4 +238,15 @@ export class ItemRepository {
       },
     });
   }
+
+  async getAllLostItem(tx = prisma) {
+    return await tx.user_item.findMany({
+      where: {
+        status: "Lost",
+      },
+      include: {
+        user_information: true
+      }
+    });
+  }
 }
