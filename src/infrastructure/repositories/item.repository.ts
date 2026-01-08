@@ -229,13 +229,24 @@ export class ItemRepository {
 
   async itemReportFoundByUser(user_id: number, tx = prisma) {
     return await tx.report.findMany({
-      // where: {
-      //   customer_id: user_id,
-      // },
-      // include: {
-      //   user_information: true,
-      //   user_item: true,
-      // },
+      where: {
+        customer_id: user_id,
+      },
+      include: {
+        user_information: true,
+        user_item: true,
+      },
+    });
+  }
+
+  async getAllLostItem(tx = prisma) {
+    return await tx.user_item.findMany({
+      where: {
+        status: "Lost",
+      },
+      include: {
+        user_information: true
+      }
     });
   }
 }

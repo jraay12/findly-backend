@@ -18,6 +18,7 @@ import { GetOrdersUsecase } from "./getOrders.usecase";
 import { SubmitReport } from "./submitReport.usecase";
 import { OrderToggleUsecase } from "./orderToggle.usecase";
 import { ItemReportFoundUsecase } from "./itemReportFound.usecase";
+import { GetAllLostUserItemUsecase } from "./getAllLostUserItem.usecase";
 // Initialize repository and mailer
 const itemRepository = new ItemRepository();
 const nodemailerService = new NodemailerService();
@@ -57,3 +58,7 @@ export const orderToggle = new OrderToggleUsecase(itemRepository);
 export const itemReportFoundUsecase = new ItemReportFoundUsecase(
   itemRepository
 );
+export const getAllLostUserItemUsecase = new GetAllLostUserItemUsecase(
+  itemRepository
+);
+

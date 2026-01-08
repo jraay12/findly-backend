@@ -1389,5 +1389,8 @@ router.post("/order-toggle/:id", authenticateJWT, itemController.orderToggle);
 
 router.get("/item-report-found", authenticateJWT, itemController.itemReportFound);
 
+router.get("/all-lost-item", authenticateJWT, itemController.getAllLostItem);
+
+
 
 export default router;
