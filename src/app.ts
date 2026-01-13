@@ -10,7 +10,7 @@ const app = express();
 app.use(express.json());
 app.use(
   cors({
-    origin: ["http://localhost:3005", 'http://192.168.68.109:3005', 'http://31.97.108.149/findly/'],
+    origin: ["http://localhost:3005", 'http://192.168.68.109:3005', 'http://31.97.108.149/findly/', "http://72.62.198.230:8000/"],
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     credentials: true, // if you need cookies
   })
