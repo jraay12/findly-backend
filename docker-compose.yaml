@@ -12,7 +12,7 @@ services:
     environment:
       DATABASE_URL: "mysql://root@db:3306/findly"
     env_file:
-      - env
+      - app.env
     depends_on:
       - db
     volumes:
