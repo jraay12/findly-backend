@@ -14,8 +14,9 @@ services:
     depends_on:
       - db
     volumes:
-      - ./:/usr/src/app
+      #- ./:/usr/src/app # enable only in developer, this is for live code reloading
       - /usr/src/app/node_modules
+      - ./findly_uploads:/usr/src/app/findly_uploads
 
   db:
     image: mysql:8.0
