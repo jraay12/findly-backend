@@ -18,7 +18,7 @@ services:
     volumes:
       #- ./:/usr/src/app # enable only in developer, this is for live code reloading
       - /usr/src/app/node_modules
-      - ./findly_uploads:/usr/src/app/findly_uploads
+      - ./findly_uploads:/usr/src/app/findly-upload
 
   db:
     image: mysql:8.0
@@ -44,11 +44,6 @@ services:
       PMA_PASSWORD: ""  
     depends_on:
       - db
-  mailhog:
-    image: mailhog/mailhog
-    ports:
-      - "1025:1025" # SMTP port
-      - "8025:8025" # Web UI port
 
 volumes:
   db_data:
