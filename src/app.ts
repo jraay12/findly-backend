@@ -29,7 +29,7 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: "http://72.62.198.230:8000",
+        url: "http://72.62.198.230:8000/",
         description: "Local server",
       },
     ],
