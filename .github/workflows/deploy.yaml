@@ -60,12 +60,12 @@ jobs:
       - name: Multiple commands
         uses: appleboy/ssh-action@v1
         with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.KEY }}
-          port: ${{ secrets.PORT }}
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd /root/findly-backend
             mkdir -p findly_uploads
             sh /root/scripts/deploy.sh
+            systemctl restart nginx
           
