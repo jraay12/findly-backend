@@ -39,13 +39,22 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v5
 
-      - name: Copy files via SSH
+      - name: Copy docker compose via SSH
         uses: appleboy/scp-action@v1
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "findly-backend/docker-compose.yaml, findly-backend/.env, scripts/deploy.sh"
+          source: "docker/docker-compose.yaml,.env,scripts/deploy.sh"
+          target: "/root/findly-backend/"
+
+      - name: Copy script to the server
+        uses: appleboy/scp-action@v1
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: "scripts/deploy.sh"
           target: "/root"
 
       - name: Multiple commands
