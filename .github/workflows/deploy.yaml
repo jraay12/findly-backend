@@ -35,6 +35,10 @@ jobs:
     needs: build-and-push
     runs-on: ubuntu-latest
     steps:
+
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
       - name: Copy files via SSH
         uses: appleboy/scp-action@v1
         with:
