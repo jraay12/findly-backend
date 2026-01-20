@@ -45,7 +45,7 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "docker/docker-compose.yaml,.env,scripts/deploy.sh"
+          source: "docker/docker-compose.yaml,/.env"
           target: "/root/findly-backend/"
 
       - name: Copy script to the server
@@ -64,7 +64,7 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd /root/findly-backend
+            cd /root/findly-backendcd
             mkdir -p findly_uploads
             sh /root/scripts/deploy.sh
             systemctl restart nginx

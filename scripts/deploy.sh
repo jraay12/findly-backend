@@ -3,7 +3,7 @@
 sudo -i bash <<EOF
 
 echo "Navigate to directory"
-cd /root/findly-backend
+cd /root/findly-backend/docker
 
 echo "Stop the application"
 docker-compose down
