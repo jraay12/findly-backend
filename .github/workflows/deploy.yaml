@@ -57,15 +57,25 @@ jobs:
           source: "scripts/deploy.sh"
           target: "/root"
 
-      - name: Multiple commands
+      - name: Create empty uploads folder on server
         uses: appleboy/ssh-action@v1
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd /root/findly-backendcd
+            cd /root/findly-backend
             mkdir -p findly_uploads
+            sh /root/scripts/deploy.sh
+            systemctl restart nginx
+
+      - name: Run the script on the server
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
             sh /root/scripts/deploy.sh
             systemctl restart nginx
           
