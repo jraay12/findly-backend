@@ -66,8 +66,6 @@ jobs:
           script: |
             cd /root/findly-backend
             mkdir -p findly_uploads
-            sh /root/scripts/deploy.sh
-            systemctl restart nginx
 
       - name: Run the script on the server
         uses: appleboy/ssh-action@v1

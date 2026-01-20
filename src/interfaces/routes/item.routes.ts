@@ -9,7 +9,7 @@ import { multerUpload } from "../../infrastructure/upload/multerConfig";
  * /items/createUserItem:
  *   post:
  *     summary: Create a new item for a user
- *     tags: [UserItems]
+ *     tags: [TESTING ONLY]
  *     security:
  *       - bearerAuth: []
  *     requestBody:
