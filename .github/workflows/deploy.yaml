@@ -45,7 +45,7 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "docker/docker-compose.yaml,/.env"
+          source: "docker/docker-compose.yaml"
           target: "/root/findly-backend/"
 
       - name: Copy script to the server
