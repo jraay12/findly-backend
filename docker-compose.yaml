@@ -10,14 +10,12 @@ services:
     ports:
       - "8000:8000"
     environment:
-      DATABASE_URL: "mysql://root@db:3306/findly"
+      DATABASE_URL: "mysql://root:howpathetic1@db:3306/findly"
     env_file:
       - ./.env
     depends_on:
       - db
     volumes:
-      #- ./:/usr/src/app # enable only in developer, this is for live code reloading
-      - /usr/src/app/node_modules
       - ./findly_uploads:/usr/src/app/findly-upload
 
   db:
@@ -25,7 +23,7 @@ services:
     container_name: findly-db
     restart: unless-stopped
     environment:
-      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_ROOT_PASSWORD: howpathetic1
       MYSQL_DATABASE: findly
     ports:
       - "3306:3306"
@@ -41,7 +39,7 @@ services:
     environment:
       PMA_HOST: db
       PMA_USER: root
-      PMA_PASSWORD: ""  
+      PMA_PASSWORD: "howpathetic1"  
     depends_on:
       - db
 

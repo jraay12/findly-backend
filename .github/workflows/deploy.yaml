@@ -1,4 +1,4 @@
-name: practice-deploy
+name: Deploy
 
 on:
   push:
@@ -45,8 +45,8 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "docker/docker-compose.yaml"
-          target: "/root/findly-backend/"
+          source: "findly-backend-docker/docker-compose.yaml"
+          target: "/root"
 
       - name: Copy script to the server
         uses: appleboy/scp-action@v1
@@ -64,7 +64,7 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd /root/findly-backend
+            cd /root/findly-backend-docker
             mkdir -p findly_uploads
 
       - name: Run the script on the server

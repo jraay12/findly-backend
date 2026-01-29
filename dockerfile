@@ -13,6 +13,6 @@ COPY . .
 
 RUN npx prisma generate
 
-EXPOSE 8000
+EXPOSE 3000
 
-CMD [ "npm", "run", "dev" ]
+CMD ["sh", "-c", "npx prisma migrate dev --name init && npm run dev"]
