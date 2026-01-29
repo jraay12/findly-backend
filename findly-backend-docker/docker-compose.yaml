@@ -7,15 +7,19 @@ services:
     ports:
       - "3000:3000"
     environment:
-      DATABASE_URL: "mysql://root:howpathetic1@host.docker.internal:3306/findly"
+      DATABASE_URL: "mysql://root:howpathetic1@pocket_db:3306/findly"
     env_file:
       - ./.env
-    # depends_on:
-    #   - db
+    networks:
+      - docker_default
     volumes:
       #- ./:/usr/src/app # enable only in developer, this is for live code reloading
       - /usr/src/app/node_modules
       - ./findly_uploads:/usr/src/app/findly-upload
+
+networks:
+  docker_default: 
+    external: true
 
   # db:
   #   image: mysql:8.0
