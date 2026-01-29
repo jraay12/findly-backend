@@ -10,8 +10,8 @@ services:
       DATABASE_URL: "mysql://root:howpathetic1@db:3306/findly"
     env_file:
       - ./.env
-    depends_on:
-      - db
+    # depends_on:
+    #   - db
     volumes:
       #- ./:/usr/src/app # enable only in developer, this is for live code reloading
       - /usr/src/app/node_modules
