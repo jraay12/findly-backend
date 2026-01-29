@@ -7,7 +7,7 @@ services:
     ports:
       - "3000:3000"
     environment:
-      DATABASE_URL: "mysql://root:howpathetic1@db:3306/findly"
+      DATABASE_URL: "mysql://root:howpathetic1@host.docker.internal:3306/findly"
     env_file:
       - ./.env
     # depends_on:
